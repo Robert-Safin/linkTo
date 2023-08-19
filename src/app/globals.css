@@ -1,12 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Montserrat:wght@900&family=Roboto&family=Tilt+Prism&family=Ubuntu&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 @layer components {
   .headerM {
     font-size: 32px;
     line-height: 150%;
-    @apply font-instrumental tracking-wide font-semibold;
+    @apply font-instrument  font-semibold !important;
   }
 }
 
@@ -14,7 +16,7 @@
   .headerS {
     font-size: 16px;
     line-height: 150%;
-    @apply font-instrumental tracking-wide font-semibold;
+    @apply font-instrument font-semibold !important
   }
 }
 
@@ -22,7 +24,7 @@
   .bodyM {
     font-size: 16px;
     line-height: 150%;
-    @apply font-instrumental;
+    @apply font-instrument;
   }
 }
 
@@ -30,35 +32,21 @@
   .bodyS {
     font-size: 12px;
     line-height: 150%;
-    @apply font-instrumental;
+    @apply font-instrument;
   }
 }
-
-
-
-
-
-
-
-
-
 
 @layer components {
   .buttonPrimaryDefault {
-    @apply py-2 px-16 headerS text-white bg-strongPurple rounded-md hover:bg-midPurple
+    @apply py-2 px-16 headerS text-white bg-strongPurple rounded-md hover:bg-midPurple;
   }
 }
-
 
 @layer components {
   .buttonPrimaryDisabled {
-    @apply py-2 px-16 headerS text-white bg-midPurple rounded-md
+    @apply py-2 px-16 headerS text-white bg-midPurple rounded-md;
   }
 }
-
-
-
-
 
 @layer components {
   .buttonSecondaryDefault {
@@ -66,16 +54,11 @@
   }
 }
 
-
 @layer components {
   .buttonSecondaryDisabled {
     @apply py-2 px-16 headerS text-midPurple bg-lightGray rounded-md border border-midPurple;
   }
 }
-
-
-
-
 
 /* :root {
   --foreground-rgb: 0, 0, 0;

@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
   extend: {
     fontFamily: {
-      instrumental: ['InstrumentSans'],
+      instrument:  ['Instrument Sans'],
     },
     colors: {
       strongPurple: '#633CFF',
