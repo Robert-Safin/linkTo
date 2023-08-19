@@ -2,7 +2,82 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+@layer components {
+  .headerM {
+    font-size: 32px;
+    line-height: 150%;
+    @apply font-instrumental tracking-wide font-semibold;
+  }
+}
+
+@layer components {
+  .headerS {
+    font-size: 16px;
+    line-height: 150%;
+    @apply font-instrumental tracking-wide font-semibold;
+  }
+}
+
+@layer components {
+  .bodyM {
+    font-size: 16px;
+    line-height: 150%;
+    @apply font-instrumental;
+  }
+}
+
+@layer components {
+  .bodyS {
+    font-size: 12px;
+    line-height: 150%;
+    @apply font-instrumental;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+@layer components {
+  .buttonPrimaryDefault {
+    @apply py-2 px-16 headerS text-white bg-strongPurple rounded-md hover:bg-midPurple
+  }
+}
+
+
+@layer components {
+  .buttonPrimaryDisabled {
+    @apply py-2 px-16 headerS text-white bg-midPurple rounded-md
+  }
+}
+
+
+
+
+
+@layer components {
+  .buttonSecondaryDefault {
+    @apply py-2 px-16 headerS text-strongPurple bg-lightGray rounded-md border border-strongPurple hover:bg-midPurple;
+  }
+}
+
+
+@layer components {
+  .buttonSecondaryDisabled {
+    @apply py-2 px-16 headerS text-midPurple bg-lightGray rounded-md border border-midPurple;
+  }
+}
+
+
+
+
+
+/* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -24,4 +99,4 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-}
+} */
