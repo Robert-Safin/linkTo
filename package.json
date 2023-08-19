@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^4.23.2",
+    "@prisma/client": "^5.1.1",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
     "@vercel/postgres": "^0.4.1",

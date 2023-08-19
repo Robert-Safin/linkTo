@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["jsonProtocol"]
 }
 
 datasource db {
@@ -9,10 +8,11 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
-model User {
+model Link {
   id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  image     String
+  clerkId   String
+  url       String
+  platform  String
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
