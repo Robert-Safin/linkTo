@@ -23,7 +23,7 @@ const RootLayout:FC<Props> = async(props) =>{
 
   return (
     <ClerkProvider>
-    <html lang="en" className='bg-lightGray'>
+    <html lang="en" className='bg-lightestGray'>
       <body className='container max-w-[1440px] min-h-screen mx-auto'>
       <Nav userData={userData}/>
         {props.children}

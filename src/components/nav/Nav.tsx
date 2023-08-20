@@ -6,7 +6,7 @@ import Link from "next/link";
 import { FC, useState } from "react";
 import { BsLink45Deg } from "react-icons/bs";
 import { MdOutlineAccountCircle } from "react-icons/md";
-import { BsEye } from "react-icons/bs";
+import { TbEye } from "react-icons/tb";
 import {TbLayersLinked} from "react-icons/tb";
 interface Props {
   userData: UserData | null;
@@ -14,11 +14,11 @@ interface Props {
 
 const Nav: FC<Props> = (props) => {
   const [homeIsActive, setHomeIsActive] = useState(true);
-  const activeClass = "bg-lightPurple px-6 py-2 rounded-lg text-strongPurple";
-  const inactiveClass = "px-6 py-2 rounded-lg text-strongGray border border-strongGray";
+  const activeClass = "bg-lightPurple px-6 py-3 rounded-lg text-strongPurple flex items-center";
+  const inactiveClass = "px-6 py-3 rounded-lg text-strongGray  flex items-center";
 
   return (
-    <div className="bg-white flex flex-row justify-between p-4 items-center">
+    <div className="bg-white flex flex-row justify-between p-4 items-center sticky top-0">
 
 
 
@@ -47,18 +47,20 @@ const Nav: FC<Props> = (props) => {
 
       <div className="flex space-x-4">
         <Link
-          href={"#"}
+          href={"/home"}
           onClick={() => setHomeIsActive(!homeIsActive)}
           className={homeIsActive ? activeClass : inactiveClass}
         >
-          <BsLink45Deg className="w-8 h-8" />
+          <BsLink45Deg className="w-6 h-6" />
+          <p className="headerS pl-2 hidden md:block">Links</p>
         </Link>
         <Link
-          href={"#"}
+          href={"/profile"}
           onClick={() => setHomeIsActive(!homeIsActive)}
           className={homeIsActive ? inactiveClass : activeClass}
         >
-          <MdOutlineAccountCircle className="w-8 h-8" />
+          <MdOutlineAccountCircle className="w-6 h-6" />
+          <p className="headerS pl-2 hidden md:block">Profile Details</p>
         </Link>
       </div>
 
@@ -71,10 +73,11 @@ const Nav: FC<Props> = (props) => {
 
 
       <Link
-        href={`/preview`}
-        className="p-2 rounded-lg text-strongPurple border border-strongPurple hover:bg-strongPurple hover:text-lightGray"
+        href={`/${props.userData?.clerkId}`}
+        className="p-2 md:p-3 rounded-lg text-strongPurple border border-strongPurple hover:bg-strongPurple hover:text-lightGray"
       >
-        <BsEye className="w-8 h-8" />
+        <TbEye className="w-8 h-8 md:hidden" />
+        <p className="headerS hidden md:block">Preview</p>
       </Link>
 
 
