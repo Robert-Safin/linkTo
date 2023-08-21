@@ -1,0 +1,56 @@
+.ldsEllipsis {
+  display: inline-block;
+  position: relative;
+  width: 40px;
+  height: 18px;
+}
+.ldsEllipsis div {
+  position: absolute;
+  top: 50%;           /* Adjusted for vertical centering */
+  width: 4.5px;
+  height: 4.5px;
+  border-radius: 50%;
+  background: #fff;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  transform: translateY(-50%);  /* Translates the dot up by half its height */
+}
+.ldsEllipsis div:nth-child(1) {
+  left: 3px;
+  animation: ldsEllipsis1 0.6s infinite;
+}
+.ldsEllipsis div:nth-child(2) {
+  left: 3px;
+  animation: ldsEllipsis2 0.6s infinite;
+}
+.ldsEllipsis div:nth-child(3) {
+  left: 16px;
+  animation: ldsEllipsis2 0.6s infinite;
+}
+.ldsEllipsis div:nth-child(4) {
+  left: 29px;
+  animation: ldsEllipsis3 0.6s infinite;
+}
+@keyframes ldsEllipsis1 {
+  0% {
+    transform: scale(0) translateY(-50%);  /* Added for vertical centering */
+  }
+  100% {
+    transform: scale(1) translateY(-50%);  /* Added for vertical centering */
+  }
+}
+@keyframes ldsEllipsis3 {
+  0% {
+    transform: scale(1) translateY(-50%);  /* Added for vertical centering */
+  }
+  100% {
+    transform: scale(0) translateY(-50%);  /* Added for vertical centering */
+  }
+}
+@keyframes ldsEllipsis2 {
+  0% {
+    transform: translate(0, 0) translateY(-50%);  /* Added for vertical centering */
+  }
+  100% {
+    transform: translate(13px, 0) translateY(-50%); /* Added for vertical centering */
+  }
+}

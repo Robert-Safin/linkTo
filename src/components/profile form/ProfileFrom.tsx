@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChangeEvent, FC, useState, useTransition } from "react";
 import { LiaImageSolid } from "react-icons/lia";
+import ButtonLoader from "../loader button/ButtonLoader";
 interface Props {
   profile: Profile | null;
   clerkId: string;
@@ -22,6 +23,7 @@ export interface ProfileData {
 }
 
 const ProfileForm: FC<Props> = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [isPending, startTransition] = useTransition()
   const [avatar, setAvatar] = useState(props.profile?.avatar || null);
   const [firstName, setFirstName] = useState(props.profile?.firstName || null);
@@ -81,7 +83,7 @@ const ProfileForm: FC<Props> = (props) => {
     } else {
       setFamilyNameError(false);
     }
-
+    setIsLoading(true);
     startTransition(async() => await props.updateOrCreateProfile(profileData, props.clerkId))
   }
 
@@ -170,7 +172,7 @@ const ProfileForm: FC<Props> = (props) => {
           </div>
 
           <button type="submit" className="buttonPrimaryDefault py-3 fixed bottom-4 left-4 right-4 mx-auto">
-            Save
+            {isLoading ? <ButtonLoader/> : "Save"}
           </button>
         </form>
       </div>

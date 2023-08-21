@@ -5,6 +5,7 @@ import { FC, useState, useTransition } from "react";
 import { IoReorderTwoOutline } from "react-icons/io5";
 import { BsLink45Deg } from "react-icons/bs";
 import { Link } from "@prisma/client";
+import ButtonLoader from "../loader button/ButtonLoader";
 
 interface Props {
   clerkId: string;
@@ -23,6 +24,7 @@ export interface userLink {
 }
 
 const Links: FC<Props> = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [inTransition, startTransition] = useTransition();
   const [numberOfLinks, setNumberOfLinks] = useState(() => {
     if (props.links && props.links.length) {
@@ -41,7 +43,7 @@ const Links: FC<Props> = (props) => {
       return [
         {
           platform: Object.keys(platforms)[0],
-          url: "", // Here we set the initial URL value to an empty string
+          url: "",
         },
       ];
     }
@@ -60,7 +62,9 @@ const Links: FC<Props> = (props) => {
     const updatedLinks = [...links];
 
     let newUrl = updatedLinks[index].url;
-    const isDefaultUrl = Object.values(platforms).includes(updatedLinks[index].url);
+    const isDefaultUrl = Object.values(platforms).includes(
+      updatedLinks[index].url
+    );
 
     if (isDefaultUrl) {
       newUrl = platforms[platform as keyof typeof platforms];
@@ -76,10 +80,6 @@ const Links: FC<Props> = (props) => {
   };
 
   const updateUserLink = (newUrl: string, platform: string) => {
-    // Update userLinks state as you already do
-    // ...
-
-    // Update the links state
     const updatedLinks = [...links];
     const linkIndex = updatedLinks.findIndex(
       (link) => link.platform === platform
@@ -188,7 +188,6 @@ const Links: FC<Props> = (props) => {
                           platforms[
                             links[index].platform as keyof typeof platforms
                           ]
-                          // This will fetch the SVG path based on the platform
                         }
                         width={16}
                         height={16}
@@ -229,14 +228,15 @@ const Links: FC<Props> = (props) => {
       </div>
 
       <button
-        onClick={() =>
+        onClick={async () => {
+          setIsLoading(true);
           startTransition(
             async () => await props.updateLinks(links, props.clerkId)
-          )
-        }
-        className="buttonPrimaryDefault py-3 fixed bottom-4 left-4 right-4 mx-auto"
+          );
+        }}
+        className="buttonPrimaryDefault py-3 fixed bottom-4 left-4 right-4 mx-auto md:w-[100px] md:left-auto md:right-4"
       >
-        Save
+        {isLoading ? <ButtonLoader /> : "Save"  }
       </button>
     </div>
   );
