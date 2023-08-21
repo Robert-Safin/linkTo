@@ -25,7 +25,7 @@ export interface ProfileData {
 const ProfileForm: FC<Props> = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isPending, startTransition] = useTransition()
-  const [avatar, setAvatar] = useState(props.profile?.avatar || null);
+  const [avatar, setAvatar] = useState(props.profile?.avatarUrl || null);
   const [firstName, setFirstName] = useState(props.profile?.firstName || null);
   const [familyName, setFamilyName] = useState(
     props.profile?.familyName || null

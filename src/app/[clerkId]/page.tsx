@@ -77,7 +77,7 @@ const PreviewPage: FC<Props> = async (props) => {
 
       <div className="flex flex-col space-y-2 mx-auto w-full text-center">
         <Image
-          src={profile.avatar}
+          src={profile.avatarUrl}
           alt="avatar"
           width={150}
           height={150}
