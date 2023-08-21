@@ -23,7 +23,7 @@ export interface userLink {
 }
 
 const Links: FC<Props> = (props) => {
-  const [inTransition, startTransition] = useTransition()
+  const [inTransition, startTransition] = useTransition();
   const [numberOfLinks, setNumberOfLinks] = useState(() => {
     if (props.links && props.links.length) {
       return props.links.length;
@@ -41,7 +41,7 @@ const Links: FC<Props> = (props) => {
       return [
         {
           platform: Object.keys(platforms)[0],
-          url: platforms[Object.keys(platforms)[0] as keyof typeof platforms],
+          url: "", // Here we set the initial URL value to an empty string
         },
       ];
     }
@@ -58,11 +58,20 @@ const Links: FC<Props> = (props) => {
 
   const handlePlatformChange = (index: number, platform: string) => {
     const updatedLinks = [...links];
+
+    let newUrl = updatedLinks[index].url;
+    const isDefaultUrl = Object.values(platforms).includes(updatedLinks[index].url);
+
+    if (isDefaultUrl) {
+      newUrl = platforms[platform as keyof typeof platforms];
+    }
+
     updatedLinks[index] = {
       ...updatedLinks[index],
       platform,
-      url: platforms[platform as keyof typeof platforms],
+      url: newUrl,
     };
+
     setLinks(updatedLinks);
   };
 
@@ -179,6 +188,7 @@ const Links: FC<Props> = (props) => {
                           platforms[
                             links[index].platform as keyof typeof platforms
                           ]
+                          // This will fetch the SVG path based on the platform
                         }
                         width={16}
                         height={16}
@@ -219,7 +229,11 @@ const Links: FC<Props> = (props) => {
       </div>
 
       <button
-          onClick={() => startTransition(async() => await props.updateLinks(links, props.clerkId))}
+        onClick={() =>
+          startTransition(
+            async () => await props.updateLinks(links, props.clerkId)
+          )
+        }
         className="buttonPrimaryDefault py-3 fixed bottom-4 left-4 right-4 mx-auto"
       >
         Save

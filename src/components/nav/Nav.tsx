@@ -1,21 +1,26 @@
 "use client";
 
 import { UserData } from "@/app/layout";
-import { User } from "@clerk/nextjs/server";
 import Link from "next/link";
 import { FC, useState } from "react";
 import { BsLink45Deg } from "react-icons/bs";
 import { MdOutlineAccountCircle } from "react-icons/md";
 import { TbEye } from "react-icons/tb";
 import { TbLayersLinked } from "react-icons/tb";
+import { usePathname } from 'next/navigation'
 
 interface Props {
   userData: UserData | null;
 }
 
 const Nav: FC<Props> = (props) => {
-  const [homeIsActive, setHomeIsActive] = useState(true);
-  const [profileIsActive, setProfileIsActive] = useState(false);
+  const pathname = usePathname()
+
+  const [homeIsActive, setHomeIsActive] = useState(pathname === "/home" ? true : false);
+  const [profileIsActive, setProfileIsActive] = useState(pathname === "/profile" ? true : false);
+
+
+
   const activeClass =
     "bg-lightPurple px-6 py-3 rounded-lg text-strongPurple flex items-center";
   const inactiveClass =

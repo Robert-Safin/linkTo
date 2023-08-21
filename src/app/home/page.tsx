@@ -1,7 +1,7 @@
 import Links, { userLink } from "@/components/home comps/Links";
 import { currentUser } from "@clerk/nextjs";
 import { PrismaClient } from "@prisma/client";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 const fetchUserLinks = async (clerkId: string) => {
@@ -36,6 +36,7 @@ const updateLinks = async (links: userLink[], clerkId: string) => {
   }
 
   await prisma.$disconnect();
+  revalidateTag("/profile");
   revalidatePath("profile");
   redirect("/profile");
 };
