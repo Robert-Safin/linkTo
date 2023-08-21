@@ -1,7 +1,8 @@
-import Links from "@/components/home comps/Links";
-import NoLinks, { userLink } from "@/components/home comps/NoLinks";
+import Links, { userLink } from "@/components/home comps/Links";
 import { currentUser } from "@clerk/nextjs";
 import { PrismaClient } from "@prisma/client";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 const fetchUserLinks = async (clerkId: string) => {
   const prisma = new PrismaClient();
@@ -14,39 +15,40 @@ const fetchUserLinks = async (clerkId: string) => {
   return links;
 };
 
-const updateLinks = async (links: userLink[]) => {
+const updateLinks = async (links: userLink[], clerkId: string) => {
   "use server";
+
   const prisma = new PrismaClient();
   const linksToDelete = await prisma.link.deleteMany({
     where: {
-      clerkId: links[0].clerkId,
+      clerkId: clerkId,
     },
   });
 
-  const newLinks = await prisma.link.createMany({
-    data: links,
-  });
+  for (const link of links) {
+    await prisma.link.create({
+      data: {
+        platform: link.platform,
+        url: link.url,
+        clerkId: clerkId,
+      },
+    });
+  }
 
   await prisma.$disconnect();
+  revalidatePath("profile");
+  redirect("/profile");
 };
 
 const HomePage = async () => {
   const user = await currentUser();
   const links = await fetchUserLinks(user!.id);
 
-  if (links.length === 0) {
-    return (
-      <>
-        <NoLinks clerkId={user!.id} updateLinks={updateLinks} />
-      </>
-    );
-  } else {
-    return (
-      <>
-       <Links links={links} />
-      </>
-    );
-  }
+  return (
+    <>
+      <Links links={links} clerkId={user!.id} updateLinks={updateLinks} />
+    </>
+  );
 };
 
 export default HomePage;

@@ -11,7 +11,7 @@ interface Props {
   updateLinks: (links: userLink[]) => Promise<void>;
 }
 
-interface LinkUi {
+export interface LinkUi {
   platform: string;
   url: string;
 }
