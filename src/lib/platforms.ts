@@ -44,3 +44,12 @@ export const platforms = {
     Twitter: '#43B7E9',
     YouTube: '#EE3939',
   }
+
+
+  //discord
+  //reddit
+  //medium
+  //threads
+  //spotify
+  //steam
+  //amazon
