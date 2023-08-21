@@ -4,9 +4,11 @@ import Image from "next/image";
 import { FC, useState } from "react";
 import { IoReorderTwoOutline } from "react-icons/io5";
 import { BsLink45Deg } from "react-icons/bs";
+import { Link } from "@prisma/client";
 
 interface Props {
   clerkId: string;
+  updateLinks: (links: userLink[]) => Promise<void>;
 }
 
 interface LinkUi {
@@ -14,7 +16,7 @@ interface LinkUi {
   url: string;
 }
 
-interface userLink {
+export interface userLink {
   platform: string;
   url: string;
   clerkId: string;
@@ -40,15 +42,27 @@ const NoLinks: FC<Props> = (props) => {
     setLinks(updatedLinks);
   };
 
-  const updateUserLink = (userLink: string, platform: string) => {
+  const updateUserLink = (newUrl: string, platform: string) => {
     const updatedUserLinks = [...userLinks];
-    updatedUserLinks.push({
-      clerkId: props.clerkId,
-      platform: platform,
-      url: userLink,
-    });
+    const linkIndex = updatedUserLinks.findIndex(
+        link => link.platform === platform && link.clerkId === props.clerkId
+    );
+
+    if (linkIndex !== -1) {
+        // Link for the platform already exists, so update it
+        updatedUserLinks[linkIndex].url = newUrl;
+    } else {
+        // Link for the platform doesn't exist, so add it
+        updatedUserLinks.push({
+            clerkId: props.clerkId,
+            platform: platform,
+            url: newUrl
+        });
+    }
+
     setUserLinks(updatedUserLinks);
-  };
+};
+
 
   const getAvailablePlatforms = (currentIndex: number) => {
     let currentPlatforms = { ...platforms };
@@ -181,7 +195,7 @@ const NoLinks: FC<Props> = (props) => {
         </div>
       </div>
 
-      <button className="buttonPrimaryDefault py-3 fixed bottom-4 left-4 right-4 mx-auto">
+      <button onClick={()=> props.updateLinks(userLinks)} className="buttonPrimaryDefault py-3 fixed bottom-4 left-4 right-4 mx-auto">
         Save
       </button>
     </div>
