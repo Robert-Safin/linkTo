@@ -6,6 +6,7 @@ import { IoReorderTwoOutline } from "react-icons/io5";
 import { BsLink45Deg } from "react-icons/bs";
 import { Link } from "@prisma/client";
 import ButtonLoader from "../loader button/ButtonLoader";
+import Preview from "./Preview";
 
 interface Props {
   clerkId: string;
@@ -48,15 +49,6 @@ const Links: FC<Props> = (props) => {
       ];
     }
   });
-  // const [userLinks, setUserLinks] = useState<userLink[]>(() => {
-  //   if (props.links && props.links.length) {
-  //     return props.links.map((link) => ({
-  //       ...link,
-  //       clerkId: props.clerkId,
-  //     }));
-  //   }
-  //   return [];
-  // });
 
   const handlePlatformChange = (index: number, platform: string) => {
     const updatedLinks = [...links];
@@ -116,7 +108,10 @@ const Links: FC<Props> = (props) => {
   };
 
   return (
-    <div className="bg-white rounded-md m-4 p-4 min-h-screen flex flex-col justify-between">
+    <div className="xl:flex">
+      <Preview links={links}/>
+
+    <div className="xl:w-3/5 bg-white rounded-md m-4 p-4 min-h-screen flex flex-col justify-between">
       <div>
         <h1 className="headerM text-[24px] mb-2">Customize your links</h1>
         <p className="bodyM text-midGray mb-6">
@@ -150,6 +145,24 @@ const Links: FC<Props> = (props) => {
         >
           + Add new link
         </button>
+
+        {numberOfLinks === 1 && (
+          <div className="bg-lightestGray px-2 py-16 rounded-xl flex flex-col mx-auto w-full text-center mt-4 md:py-36">
+            <Image
+              src={"/other/start.svg"}
+              alt="get started"
+              width={124}
+              height={80}
+              className="mx-auto md:w-[250px] md:h-[160px]"
+            />
+            <h1 className="headerM my-6 md:my-8">Let’s get you started</h1>
+            <p className="bodyM text-midGray md:w-[488px] md:mx-auto">
+              Use the “Add new link” button to get started. Once you have more
+              than one link, you can reorder and edit them. We’re here to help
+              you share your profiles with everyone!
+            </p>
+          </div>
+        )}
 
         {!hasAvailablePlatforms() && (
           <p className="headerS mt-2 text-red text-right">
@@ -236,8 +249,9 @@ const Links: FC<Props> = (props) => {
         }}
         className="buttonPrimaryDefault py-3 fixed bottom-4 left-4 right-4 mx-auto md:px-0 md:w-[100px] md:left-auto md:right-4"
       >
-        {isLoading ? <ButtonLoader /> : "Save"  }
+        {isLoading ? <ButtonLoader /> : "Save"}
       </button>
+    </div>
     </div>
   );
 };
