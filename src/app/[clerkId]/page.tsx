@@ -2,15 +2,16 @@ import { PrismaClient } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
-import { BsArrowRepeat, BsArrowRight } from "react-icons/bs";
+import { BsArrowRight } from "react-icons/bs";
 import { platforms, colors } from "@/lib/platforms";
 import ShareButton from "@/components/share button/ShareButton";
-import { currentUser } from "@clerk/nextjs";
+import { currentUser, clerkClient } from "@clerk/nextjs";
 interface Props {
   params: {
     clerkId: string;
   };
 }
+
 
 const fetchUserProfile = async (clerkId: string) => {
   const prisma = new PrismaClient();
@@ -35,8 +36,27 @@ const fetchLinks = async (clerkId: string) => {
 };
 
 const PreviewPage: FC<Props> = async (props) => {
+
   const user = await currentUser();
   const links = await fetchLinks(props.params.clerkId);
+  let searchedUser
+  try {
+    searchedUser = await clerkClient.users.getUser(props.params.clerkId)
+  } catch(error) {
+    searchedUser = null
+  }
+
+  if (searchedUser===null) {
+    return (
+      <div className="bg-white rounded-md m-4 p-4 flex flex-col">
+        <div className="flex flex-col items-center mx-auto bg-lightestGray p-4 m-4 rounded-md w-full">
+          <p className="headerS text-red mb-4">User not found</p>
+        </div>
+      </div>
+    );
+  }
+
+
   if (links.length === 0) {
     return (
       <div className="bg-white rounded-md m-4 p-4 flex flex-col">
