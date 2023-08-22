@@ -53,19 +53,19 @@ const updateOrCreateProfile = async(profileData:ProfileData, clerkId:string) => 
       },
     });
     await prisma.$disconnect();
+  } else {
+    const newProfile = await prisma.profile.create({
+      data: {
+        clerkId: clerkId,
+        avatarUrl: cloudinaryResponse.secure_url,
+        avatarPublicId: cloudinaryResponse.public_id,
+        firstName: profileData.firstName,
+        familyName: profileData.familyName,
+        email: profileData.email,
+      },
+    });
+    await prisma.$disconnect();
   }
-
-  const newProfile = await prisma.profile.create({
-    data: {
-      clerkId: clerkId,
-      avatarUrl: cloudinaryResponse.secure_url,
-      avatarPublicId: cloudinaryResponse.public_id,
-      firstName: profileData.firstName,
-      familyName: profileData.familyName,
-      email: profileData.email,
-    },
-  });
-  await prisma.$disconnect();
 
   revalidatePath(`/${clerkId}`);
   redirect(`/${clerkId}`);
