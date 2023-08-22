@@ -5,6 +5,7 @@ import { FC } from "react";
 import { BsArrowRepeat, BsArrowRight } from "react-icons/bs";
 import { platforms, colors } from "@/lib/platforms";
 import ShareButton from "@/components/share button/ShareButton";
+import { currentUser } from "@clerk/nextjs";
 interface Props {
   params: {
     clerkId: string;
@@ -34,6 +35,7 @@ const fetchLinks = async (clerkId: string) => {
 };
 
 const PreviewPage: FC<Props> = async (props) => {
+  const user = await currentUser();
   const links = await fetchLinks(props.params.clerkId);
   if (links.length === 0) {
     return (
@@ -65,16 +67,18 @@ const PreviewPage: FC<Props> = async (props) => {
 
   return (
     <div className="w-full">
-      <div className="hiden md:block md:fixed md:z-10 md:bg-strongPurple md:w-full md:h-[380px] md:top-0 md:rounded-b-3xl"/>
-      <div className="z-20 fixed top-0 w-full flex bg-white p-4 space-x-4 md:left-4 md:right-4 md:top-4 md:w-auto md:rounded-lg md:justify-between">
-        <Link
-          href={"/home"}
-          className="buttonSecondaryDefault w-1/2 px-4 bg-white text-center md:w-auto"
-        >
-          Back to Editor
-        </Link>
-        <ShareButton />
-      </div>
+      <div className="hiden md:block md:fixed md:z-10 md:bg-strongPurple md:w-full md:h-[380px] md:top-0 md:rounded-b-3xl" />
+      {user && (
+        <div className="z-20 fixed top-0 w-full flex bg-white p-4 space-x-4 md:left-4 md:right-4 md:top-4 md:w-auto md:rounded-lg md:justify-between">
+          <Link
+            href={"/home"}
+            className="buttonSecondaryDefault w-1/2 px-4 bg-white text-center md:w-auto"
+          >
+            Back to Editor
+          </Link>
+          <ShareButton />
+        </div>
+      )}
 
       <div className="md:w-2/5 md:mx-auto md:z-50 md:flex md:flex-col mt-20 md:mt-40 md:shadow-xl">
         <div className="flex flex-col space-y-2 mx-auto w-full text-center md:z-30 md:bg-white md:pt-16 md:rounded-t-lg">

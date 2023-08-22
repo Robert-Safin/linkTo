@@ -8,6 +8,7 @@ export default authMiddleware({
     "/",
     'signIn',
     'signUp',
+    ''
   ]
 });
 
