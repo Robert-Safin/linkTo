@@ -1,10 +1,11 @@
 "use client";
 
-import { Profile } from "@prisma/client";
+import { Link, Profile } from "@prisma/client";
 import Image from "next/image";
 import { ChangeEvent, FC, useState, useTransition } from "react";
 import { LiaImageSolid } from "react-icons/lia";
 import ButtonLoader from "../loader button/ButtonLoader";
+import Preview from "../home comps/Preview";
 interface Props {
   profile: Profile | null;
   clerkId: string;
@@ -12,6 +13,7 @@ interface Props {
     profileData: ProfileData,
     clerkId: string
   ) => Promise<void>;
+  links : Link[]
 }
 
 export interface ProfileData {
@@ -81,7 +83,9 @@ const ProfileForm: FC<Props> = (props) => {
   };
 
   return (
-    <div className="bg-white rounded-md p-4 m-4 h-screen">
+    <div className="xl:flex">
+      <Preview links={props.links} profile={props.profile!}/>
+    <div className="bg-white rounded-md p-4 m-4 h-screen xl:w-3/5">
       <h1 className="headerM mt-6 mb-4">Profile Details</h1>
       <p className="bodyM text-midGray mb-6">
         Add your details to create a personal touch to your profile.
@@ -185,6 +189,7 @@ const ProfileForm: FC<Props> = (props) => {
           {isLoading ? <ButtonLoader /> : "Save"}
         </button>
       </form>
+    </div>
     </div>
   );
 };

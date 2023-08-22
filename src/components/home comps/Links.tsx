@@ -4,7 +4,7 @@ import Image from "next/image";
 import { FC, useState, useTransition } from "react";
 import { IoReorderTwoOutline } from "react-icons/io5";
 import { BsLink45Deg } from "react-icons/bs";
-import { Link } from "@prisma/client";
+import { Link, Profile } from "@prisma/client";
 import ButtonLoader from "../loader button/ButtonLoader";
 import Preview from "./Preview";
 
@@ -12,6 +12,7 @@ interface Props {
   clerkId: string;
   updateLinks: (links: userLink[], clerkId: string) => Promise<void>;
   links?: Link[];
+  profile: Profile
 }
 
 export interface LinkUi {
@@ -109,7 +110,7 @@ const Links: FC<Props> = (props) => {
 
   return (
     <div className="xl:flex">
-      <Preview links={links}/>
+      <Preview links={links} profile={props.profile}/>
 
     <div className="xl:w-3/5 bg-white rounded-md m-4 p-4 min-h-screen flex flex-col justify-between">
       <div>
@@ -146,7 +147,7 @@ const Links: FC<Props> = (props) => {
           + Add new link
         </button>
 
-        {numberOfLinks === 1 && (
+        {numberOfLinks === 0 || 1 && (
           <div className="bg-lightestGray px-2 py-16 rounded-xl flex flex-col mx-auto w-full text-center mt-4 md:py-36">
             <Image
               src={"/other/start.svg"}

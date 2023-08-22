@@ -11,6 +11,18 @@ cloudinary.v2.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+
+const fecthLinks = async (clerkId:string) => {
+  const prisma = new PrismaClient();
+  const links = await prisma.link.findMany({
+    where: {
+      clerkId: clerkId,
+    },
+  });
+  await prisma.$disconnect();
+  return links;
+}
+
 const fetchProfile = async (clerkId:string) => {
   const prisma = new PrismaClient();
   const profile = await prisma.profile.findFirst({
@@ -74,10 +86,11 @@ const updateOrCreateProfile = async(profileData:ProfileData, clerkId:string) => 
 const ProfilePage = async() => {
   const user = await currentUser()
   const profile = await fetchProfile(user!.id)
+  const links = await fecthLinks(user!.id)
 
   return (
     <>
-    <ProfileForm profile={profile} clerkId={user!.id} updateOrCreateProfile={updateOrCreateProfile}/>
+    <ProfileForm profile={profile} clerkId={user!.id} updateOrCreateProfile={updateOrCreateProfile} links={links}/>
     </>
   )
 

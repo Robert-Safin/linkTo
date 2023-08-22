@@ -4,6 +4,17 @@ import { PrismaClient } from "@prisma/client";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
+const fetchUserProfile = async (clerkId: string) => {
+  const prisma = new PrismaClient();
+  const profile = await prisma.profile.findFirst({
+    where: {
+      clerkId: clerkId,
+    },
+  });
+  await prisma.$disconnect();
+  return profile;
+}
+
 const fetchUserLinks = async (clerkId: string) => {
   const prisma = new PrismaClient();
   const links = await prisma.link.findMany({
@@ -44,10 +55,11 @@ const updateLinks = async (links: userLink[], clerkId: string) => {
 const HomePage = async () => {
   const user = await currentUser();
   const links = await fetchUserLinks(user!.id);
+  const profile = await fetchUserProfile(user!.id);
 
   return (
     <>
-      <Links links={links} clerkId={user!.id} updateLinks={updateLinks} />
+      <Links links={links} clerkId={user!.id} updateLinks={updateLinks} profile={profile!}/>
     </>
   );
 };
