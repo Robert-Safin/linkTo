@@ -18,7 +18,7 @@ const ShareButton:FC<Props> = (props) => {
   }
 
   return (
-    <button onClick={handleClick} className="buttonPrimaryDefault w-1/2 px-4">{copied ? 'Coppied to clipboard' : "Share Link"}</button>
+    <button onClick={handleClick} className="buttonPrimaryDefault w-1/2 px-4 md:w-auto">{copied ? 'Coppied to clipboard' : "Share Link"}</button>
 
   )
 }

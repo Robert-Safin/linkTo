@@ -48,15 +48,15 @@ const Links: FC<Props> = (props) => {
       ];
     }
   });
-  const [userLinks, setUserLinks] = useState<userLink[]>(() => {
-    if (props.links && props.links.length) {
-      return props.links.map((link) => ({
-        ...link,
-        clerkId: props.clerkId,
-      }));
-    }
-    return [];
-  });
+  // const [userLinks, setUserLinks] = useState<userLink[]>(() => {
+  //   if (props.links && props.links.length) {
+  //     return props.links.map((link) => ({
+  //       ...link,
+  //       clerkId: props.clerkId,
+  //     }));
+  //   }
+  //   return [];
+  // });
 
   const handlePlatformChange = (index: number, platform: string) => {
     const updatedLinks = [...links];
@@ -217,7 +217,7 @@ const Links: FC<Props> = (props) => {
                       onChange={(e) =>
                         updateUserLink(e.target.value, links[index].platform)
                       }
-                      required
+                      className="w-full"
                     />
                   </div>
                 </div>
@@ -234,7 +234,7 @@ const Links: FC<Props> = (props) => {
             async () => await props.updateLinks(links, props.clerkId)
           );
         }}
-        className="buttonPrimaryDefault py-3 fixed bottom-4 left-4 right-4 mx-auto md:w-[100px] md:left-auto md:right-4"
+        className="buttonPrimaryDefault py-3 fixed bottom-4 left-4 right-4 mx-auto md:px-0 md:w-[100px] md:left-auto md:right-4"
       >
         {isLoading ? <ButtonLoader /> : "Save"  }
       </button>
