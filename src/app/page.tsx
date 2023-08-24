@@ -3,7 +3,9 @@ import Link from "next/link";
 
 const Page = async () => {
 
-  const user =await  currentUser()
+  const user = await  currentUser()
+  console.log(user);
+
   return (
 
     <div className="flex justify-center items-center h-screen bg-lightestGray">
@@ -27,7 +29,6 @@ const Page = async () => {
           </Link>
         </div>
       </div>
-      {JSON.stringify(user?.emailAddresses[0].emailAddress)}
     </div>
   );
 };

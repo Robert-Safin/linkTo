@@ -97,10 +97,7 @@ const ProfileForm: FC<Props> = (props) => {
       async () => await props.updateOrCreateProfile(profileData, props.clerkId)
     );
   };
-  const handleInputChange = (key: keyof ProfileData, value: string) => {
-    const updatedProfile = { ...clientProfileData, [key]: value };
-    setClientProfileData(updatedProfile);
-  };
+
 
   return (
     <div className="xl:flex">
