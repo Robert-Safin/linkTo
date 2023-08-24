@@ -15,6 +15,7 @@ const Page = async () => {
           Generate your personal page with links to your social platforms.
         </p>
         <div className="flex flex-col w-full justify-evenly space-y-4">
+
           <Link
             href={`https://clear-rabbit-33.accounts.dev/sign-in`}
             className="buttonPrimaryDefault text-center"
