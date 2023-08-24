@@ -102,12 +102,7 @@ const Links: FC<Props> = (props) => {
     setNumberOfLinks((prev) => prev - 1);
   };
 
-  const clientProfileData = {
-    avatar: props.profile.avatarUrl,
-    firstName: props.profile.firstName,
-    familyName: props.profile.familyName,
-    email: props.profile.email!,
-  }
+
 
   return (
     <div className="xl:flex">

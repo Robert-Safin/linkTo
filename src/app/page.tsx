@@ -4,7 +4,6 @@ import Link from "next/link";
 const Page = async () => {
 
   const user = await  currentUser()
-  console.log(user);
 
   return (
 
@@ -30,6 +29,7 @@ const Page = async () => {
           </Link>
         </div>
       </div>
+          {JSON.stringify(user)}
     </div>
   );
 };
