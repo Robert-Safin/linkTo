@@ -6,7 +6,7 @@ import { IoReorderTwoOutline } from "react-icons/io5";
 import { BsLink45Deg } from "react-icons/bs";
 import { Link, Profile } from "@prisma/client";
 import ButtonLoader from "../loader button/ButtonLoader";
-import Preview from "./Preview";
+import Preview from "./PreviewProfile";
 
 interface Props {
   clerkId: string;

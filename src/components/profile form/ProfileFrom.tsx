@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ChangeEvent, FC, useState, useTransition } from "react";
 import { LiaImageSolid } from "react-icons/lia";
 import ButtonLoader from "../loader button/ButtonLoader";
-import Preview from "../home comps/Preview";
+import PreviewProfile from "../home comps/PreviewProfile";
 interface Props {
   profile: Profile | null;
   clerkId: string;
@@ -101,7 +101,7 @@ const ProfileForm: FC<Props> = (props) => {
 
   return (
     <div className="xl:flex">
-      <Preview
+      <PreviewProfile
         links={props.links}
         profile={props.profile!}
         clientProfileData={clientProfileData}

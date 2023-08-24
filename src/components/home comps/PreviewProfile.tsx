@@ -11,13 +11,13 @@ import { ProfileData } from "../profile form/ProfileFrom";
 interface Props {
   links: LinkUi[];
   profile: Profile;
-  clientProfileData?: ProfileData;
+  clientProfileData: ProfileData;
 }
 
-const Preview: FC<Props> = ({ links, profile, clientProfileData }) => {
+const PreviewProfile: FC<Props> = ({ links, profile, clientProfileData }) => {
 
 
-  // const profile = clientProfileData || profile;
+  const effectiveProfile = clientProfileData || profile;
 
   const shadowsToShow = 5 - links.length;
 
@@ -33,19 +33,19 @@ const Preview: FC<Props> = ({ links, profile, clientProfileData }) => {
     <div className="hidden xl:flex w-2/5 bg-white p-4 my-4 ml-4 rounded-xl  justify-center">
       <div className="fixed mt-20 border-2 rounded-[65px] border-lightGray px-8 py-14 flex flex-col h-[630px] w-[320px] items-center">
         {userHasAvatar ? (
-          <Image src={profile.avatarUrl || profile.avatarUrl} width={1000} height={1000} alt="avatar" className="rounded-full border-2 border-strongPurple h-24 w-24 mb-8"/>
+          <Image src={effectiveProfile.avatar || profile.avatarUrl} width={1000} height={1000} alt="avatar" className="rounded-full border-2 border-strongPurple h-24 w-24 mb-8"/>
         ) : (
           <div className="bg-lightGray rounded-full h-24 w-24 mb-8" />
         )}
         {userHasFamilyName && userHasFirstName ? (
           <p className="headerS mb-2">
-            {profile.firstName} {profile.familyName}
+            {effectiveProfile.firstName} {effectiveProfile.familyName}
           </p>
         ) : (
           <div className="bg-lightGray h-4 w-44 rounded-lg mb-2" />
         )}
         {userHasEmail ? (
-          <p className="bodyM text-midGray mb-8">{profile.email}</p>
+          <p className="bodyM text-midGray mb-8">{effectiveProfile.email}</p>
         ) : (
           <div className="bg-lightGray h-2 w-24 rounded-lg mb-8" />
         )}
@@ -86,4 +86,4 @@ const Preview: FC<Props> = ({ links, profile, clientProfileData }) => {
   );
 };
 
-export default Preview;
+export default PreviewProfile;
