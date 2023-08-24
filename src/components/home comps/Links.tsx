@@ -111,7 +111,7 @@ const Links: FC<Props> = (props) => {
 
   return (
     <div className="xl:flex">
-      <Preview links={links} profile={props.profile} clientProfileData={clientProfileData}/>
+      {/* <Preview links={links} profile={props.profile} clientProfileData={clientProfileData}/> */}
 
     <div className="xl:w-3/5 bg-white rounded-md m-4 p-4 min-h-screen flex flex-col justify-between">
       <div>
