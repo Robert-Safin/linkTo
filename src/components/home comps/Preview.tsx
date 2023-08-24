@@ -1,5 +1,4 @@
 "use client";
-
 import { FC } from "react";
 import { LinkUi } from "./Links";
 import Image from "next/image";
@@ -7,44 +6,49 @@ import { BsArrowRight } from "react-icons/bs";
 import { colors, platforms } from "@/lib/platforms";
 import Link from "next/link";
 import { Profile } from "@prisma/client";
+import { ProfileData } from "../profile form/ProfileFrom";
+
 interface Props {
   links: LinkUi[];
   profile: Profile;
+  clientProfileData: ProfileData;
 }
 
-const Preview: FC<Props> = (props) => {
-  const shadowsToShow = 5 - props.links.length;
+const Preview: FC<Props> = ({ links, profile, clientProfileData }) => {
+  const effectiveProfile = clientProfileData || profile;
 
-  const userHasLinks = props.links.length > 0;
-  const userHasAvatar = props.profile.avatarUrl !== null;
-  const userHasFirstName = props.profile.firstName !== null;
-  const userHasFamilyName = props.profile.familyName !== null;
-  const userHasEmail = props.profile.email !== null;
+  const shadowsToShow = 5 - links.length;
+
+  const userHasLinks = links.length > 0;
+  const userHasAvatar = effectiveProfile.avatar !== null;
+  const userHasFirstName = effectiveProfile.firstName !== null;
+  const userHasFamilyName = effectiveProfile.familyName !== null;
+  const userHasEmail = effectiveProfile.email !== null;
 
   return (
     <div className="hidden xl:flex w-2/5 bg-white p-4 my-4 ml-4 rounded-xl  justify-center">
       <div className="fixed mt-20 border-2 rounded-[65px] border-lightGray px-8 py-14 flex flex-col h-[630px] w-[320px] items-center">
         {userHasAvatar ? (
-          <Image src={props.profile.avatarUrl} width={1000} height={1000} alt="avatar" className="rounded-full border-2 border-strongPurple h-24 w-24 mb-8"/>
+          <Image src={effectiveProfile.avatar} width={1000} height={1000} alt="avatar" className="rounded-full border-2 border-strongPurple h-24 w-24 mb-8"/>
         ) : (
           <div className="bg-lightGray rounded-full h-24 w-24 mb-8" />
         )}
         {userHasFamilyName && userHasFirstName ? (
           <p className="headerS mb-2">
-            {props.profile.firstName} {props.profile.familyName}
+            {effectiveProfile.firstName} {effectiveProfile.familyName}
           </p>
         ) : (
           <div className="bg-lightGray h-4 w-44 rounded-lg mb-2" />
         )}
         {userHasEmail ? (
-          <p className="bodyM text-midGray mb-8">{props.profile.email}</p>
+          <p className="bodyM text-midGray mb-8">{effectiveProfile.email}</p>
         ) : (
           <div className="bg-lightGray h-2 w-24 rounded-lg mb-8" />
         )}
 
         <div className="flex flex-col overflow-y-auto space-y-2 h-[305px]">
           {userHasLinks &&
-            props.links.map((link) => {
+            links.map((link) => {
               return (
                 <Link
                   href={link.url ? link.url : "#"}

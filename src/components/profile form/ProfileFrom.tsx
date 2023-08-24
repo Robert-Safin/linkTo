@@ -23,6 +23,7 @@ export interface ProfileData {
   email?: string;
 }
 
+
 const ProfileForm: FC<Props> = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -36,6 +37,24 @@ const ProfileForm: FC<Props> = (props) => {
   const [avatarError, setAvatarError] = useState(false);
   const [firstNameError, setFirstNameError] = useState(false);
   const [familyNameError, setFamilyNameError] = useState(false);
+
+  const [clientProfileData, setClientProfileData] = useState<ProfileData>({
+    avatar: avatar!,
+    firstName: firstName!,
+    familyName: familyName!,
+    email: email!,
+  });
+
+  const updatePreview = () => {
+    setClientProfileData({
+      avatar: avatar!,
+      firstName: firstName!,
+      familyName: familyName!,
+      email: email!,
+    });
+  }
+
+
 
   const handleAvatarChangeBase64 = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -84,14 +103,14 @@ const ProfileForm: FC<Props> = (props) => {
 
   return (
     <div className="xl:flex">
-      <Preview links={props.links} profile={props.profile!}/>
+      <Preview links={props.links} profile={props.profile!} clientProfileData={clientProfileData}/>
     <div className="bg-white rounded-md p-4 m-4 h-screen xl:w-3/5">
       <h1 className="headerM mt-6 mb-4">Profile Details</h1>
       <p className="bodyM text-midGray mb-6">
         Add your details to create a personal touch to your profile.
       </p>
 
-      <form onSubmit={handleSubmit} className="flex flex-col">
+      <form onSubmit={handleSubmit} onChange={()=> updatePreview()} className="flex flex-col">
         <div className="bg-lightestGray rounded-md p-4 flex flex-col w-full mx-auto md:flex-row md:items-center md:justify-between">
           <label className="bodyM text-midGray mb-2">Profile picture</label>
           <div className="md:w-1/2 md:flex md:items-center">
