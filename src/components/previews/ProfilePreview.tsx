@@ -14,37 +14,40 @@ interface Props {
   clientProfileData: ProfileData;
 }
 
-const PreviewProfile: FC<Props> = ({ links, profile, clientProfileData }) => {
+const PreviewProfile: FC<Props> = (props) => {
+  const effectiveProfile = {
+    avatarUrl: props.clientProfileData.avatar || props.profile.avatarUrl,
+    firstName: props.clientProfileData.firstName || props.profile.firstName,
+    familyName: props.clientProfileData.familyName || props.profile.familyName,
+    email: props.clientProfileData.email || props.profile.email,
+  };
 
+  const shadowsToShow = 5 - props.links.length;
 
-  const effectiveProfile = clientProfileData || profile;
-
-  const shadowsToShow = 5 - links.length;
-
-  const userHasLinks = links.length > 0;
-
-
-  const userHasAvatar = profile.avatarUrl  !== null && profile.avatarUrl !== "";
-  const userHasFirstName = profile.firstName !== null;
-  const userHasFamilyName = profile.familyName !== null;
-  const userHasEmail = profile.email !== null;
+  const userHasLinks = props.links.length > 0;
 
   return (
     <div className="hidden xl:flex w-2/5 bg-white p-4 my-4 ml-4 rounded-xl  justify-center">
       <div className="fixed mt-20 border-2 rounded-[65px] border-lightGray px-8 py-14 flex flex-col h-[630px] w-[320px] items-center">
-        {userHasAvatar ? (
-          <Image src={effectiveProfile.avatar || profile.avatarUrl} width={1000} height={1000} alt="avatar" className="rounded-full border-2 border-strongPurple h-24 w-24 mb-8"/>
+        {effectiveProfile.avatarUrl ? (
+          <Image
+            src={effectiveProfile.avatarUrl}
+            width={1000}
+            height={1000}
+            alt="avatar"
+            className="rounded-full border-2 border-strongPurple h-24 w-24 mb-8"
+          />
         ) : (
           <div className="bg-lightGray rounded-full h-24 w-24 mb-8" />
         )}
-        {userHasFamilyName && userHasFirstName ? (
+        {effectiveProfile.firstName || effectiveProfile.familyName ? (
           <p className="headerS mb-2">
             {effectiveProfile.firstName} {effectiveProfile.familyName}
           </p>
         ) : (
           <div className="bg-lightGray h-4 w-44 rounded-lg mb-2" />
         )}
-        {userHasEmail ? (
+        {effectiveProfile.email ? (
           <p className="bodyM text-midGray mb-8">{effectiveProfile.email}</p>
         ) : (
           <div className="bg-lightGray h-2 w-24 rounded-lg mb-8" />
@@ -52,7 +55,7 @@ const PreviewProfile: FC<Props> = ({ links, profile, clientProfileData }) => {
 
         <div className="flex flex-col overflow-y-auto space-y-2 h-[305px]">
           {userHasLinks &&
-            links.map((link) => {
+            props.links.map((link) => {
               return (
                 <Link
                   href={link.url ? link.url : "#"}
@@ -65,7 +68,7 @@ const PreviewProfile: FC<Props> = ({ links, profile, clientProfileData }) => {
                   }}
                 >
                   <div className="flex items-center md:z-30">
-                  {platforms[link.platform as keyof typeof platforms]}
+                    {platforms[link.platform as keyof typeof platforms]}
                     <p className="headerS text-white ml-2 md:z-30">
                       {link.platform}
                     </p>
