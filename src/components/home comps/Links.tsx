@@ -1,5 +1,5 @@
 "use client";
-import { platforms } from "@/lib/platforms";
+import { colors, platformsForm } from "@/lib/platforms";
 import Image from "next/image";
 import { FC, useState, useTransition } from "react";
 import { IoReorderTwoOutline } from "react-icons/io5";
@@ -44,33 +44,27 @@ const Links: FC<Props> = (props) => {
     } else {
       return [
         {
-          platform: Object.keys(platforms)[0],
+          platform: Object.keys(platformsForm)[0],
           url: "",
         },
       ];
     }
   });
-
   const handlePlatformChange = (index: number, platform: string) => {
     const updatedLinks = [...links];
 
     let newUrl = updatedLinks[index].url;
-    const isDefaultUrl = Object.values(platforms).includes(
-      updatedLinks[index].url
-    );
-
-    if (isDefaultUrl) {
-      newUrl = platforms[platform as keyof typeof platforms];
-    }
+    newUrl = "";
 
     updatedLinks[index] = {
-      ...updatedLinks[index],
-      platform,
-      url: newUrl,
+        ...updatedLinks[index],
+        platform,
+        url: newUrl,
     };
 
     setLinks(updatedLinks);
-  };
+};
+
 
   const updateUserLink = (newUrl: string, platform: string) => {
     const updatedLinks = [...links];
@@ -85,13 +79,13 @@ const Links: FC<Props> = (props) => {
   };
 
   const getAvailablePlatforms = (currentIndex: number) => {
-    let currentPlatforms = { ...platforms };
+    let currentPlatforms = { ...platformsForm };
     links.forEach((link, linkIndex) => {
       if (
         currentIndex !== linkIndex &&
-        currentPlatforms[link.platform as keyof typeof platforms]
+        currentPlatforms[link.platform as keyof typeof platformsForm]
       ) {
-        delete currentPlatforms[link.platform as keyof typeof platforms];
+        delete currentPlatforms[link.platform as keyof typeof platformsForm];
       }
     });
     return currentPlatforms;
@@ -129,7 +123,7 @@ const Links: FC<Props> = (props) => {
             const allAvailablePlatforms = getAvailablePlatforms(-1);
             const firstAvailablePlatformKey = Object.keys(
               allAvailablePlatforms
-            )[0] as keyof typeof platforms;
+            )[0] as keyof typeof platformsForm;
 
             const newLinkURL = "";
 
@@ -197,17 +191,9 @@ const Links: FC<Props> = (props) => {
                   <label className="bodyM">Platform</label>
                   <div className="flex items-center">
                     <div className="flex items-center border-2 border-lightGray w-full rounded-md bg-white p-2 mt-1">
-                      <Image
-                        src={
-                          platforms[
-                            links[index].platform as keyof typeof platforms
-                          ]
-                        }
-                        width={16}
-                        height={16}
-                        alt="icon"
-                        className="w-8 h-8 mr-2"
-                      />
+
+                    {platformsForm[links[index].platform as keyof typeof platformsForm]}
+
                       <select
                         className="w-full"
                         value={links[index].platform}

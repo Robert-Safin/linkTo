@@ -131,13 +131,8 @@ const PreviewPage: FC<Props> = async (props) => {
                 }}
               >
                 <div className="flex items-center md:z-30">
-                  <Image
-                    src={platforms[link.platform as keyof typeof platforms]}
-                    width={24}
-                    height={24}
-                    alt={link.platform}
-                    className="w-6 h-6 text-red md:z-30"
-                  />
+                  {platforms[link.platform as keyof typeof platforms]}
+
                   <p className="headerS text-white ml-2 md:z-30">
                     {link.platform}
                   </p>
