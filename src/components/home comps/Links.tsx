@@ -6,7 +6,7 @@ import { IoReorderTwoOutline } from "react-icons/io5";
 import { BsLink45Deg } from "react-icons/bs";
 import { Link, Profile } from "@prisma/client";
 import ButtonLoader from "../loader button/ButtonLoader";
-import Preview from "./PreviewProfile";
+import LinkPreview from "../previews/LinkPreview";
 
 interface Props {
   clerkId: string;
@@ -106,7 +106,7 @@ const Links: FC<Props> = (props) => {
 
   return (
     <div className="xl:flex">
-      {/* <Preview links={links} profile={props.profile} clientProfileData={clientProfileData}/> */}
+      <LinkPreview links={links} profile={props.profile}/>
 
     <div className="xl:w-3/5 bg-white rounded-md m-4 p-4 min-h-screen flex flex-col justify-between">
       <div>

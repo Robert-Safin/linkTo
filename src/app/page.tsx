@@ -29,7 +29,6 @@ const Page = async () => {
           </Link>
         </div>
       </div>
-          {JSON.stringify(user)}
     </div>
   );
 };

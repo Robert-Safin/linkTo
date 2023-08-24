@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ChangeEvent, FC, useState, useTransition } from "react";
 import { LiaImageSolid } from "react-icons/lia";
 import ButtonLoader from "../loader button/ButtonLoader";
-import PreviewProfile from "../home comps/PreviewProfile";
+// import PreviewProfile from "../home comps/PreviewProfile";
 interface Props {
   profile: Profile | null;
   clerkId: string;
