@@ -102,9 +102,16 @@ const Links: FC<Props> = (props) => {
     setNumberOfLinks((prev) => prev - 1);
   };
 
+  const  clientProfileData = {
+    avatar: props.profile.avatarUrl,
+    firstName: props.profile.firstName,
+    familyName: props.profile.familyName,
+    email: props.profile.email!,
+  }
+
   return (
     <div className="xl:flex">
-      <Preview links={links} profile={props.profile}/>
+      <Preview links={links} profile={props.profile} clientProfileData={clientProfileData}/>
 
     <div className="xl:w-3/5 bg-white rounded-md m-4 p-4 min-h-screen flex flex-col justify-between">
       <div>
@@ -141,7 +148,7 @@ const Links: FC<Props> = (props) => {
           + Add new link
         </button>
 
-        {numberOfLinks === 0 || 1 && (
+        {numberOfLinks === 0 || numberOfLinks === 1 && (
           <div className="bg-lightestGray px-2 py-16 rounded-xl flex flex-col mx-auto w-full text-center mt-4 md:py-36">
             <Image
               src={"/other/start.svg"}
