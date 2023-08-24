@@ -103,7 +103,7 @@ const Links: FC<Props> = (props) => {
   };
 
   const  clientProfileData = {
-    avatar: props.profile.avatarUrl,
+    avatar: props.profile.avatarUrl || '',
     firstName: props.profile.firstName,
     familyName: props.profile.familyName,
     email: props.profile.email!,
