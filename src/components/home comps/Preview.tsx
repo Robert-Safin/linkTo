@@ -11,43 +11,34 @@ import { ProfileData } from "../profile form/ProfileFrom";
 interface Props {
   links: LinkUi[];
   profile: Profile;
-  clientProfileData: ProfileData | null;
+  clientProfileData?: ProfileData;
 }
 
 const Preview: FC<Props> = ({ links, profile, clientProfileData }) => {
-  function isProfileData(obj: any): obj is ProfileData {
-    return (
-      typeof obj.avatar === "string" &&
-      typeof obj.firstName === "string" &&
-      typeof obj.familyName === "string" &&
-      (typeof obj.email === "string" || typeof obj.email === "undefined")
-    );
+  let effectiveProfile
+
+  if (clientProfileData) {
+    effectiveProfile = clientProfileData
+  } else {
+    effectiveProfile = profile
   }
-  const effectiveProfile = isProfileData(clientProfileData)
-    ? clientProfileData
-    : profile;
+
+  // const effectiveProfile = clientProfileData || profile;
 
   const shadowsToShow = 5 - links.length;
 
   const userHasLinks = links.length > 0;
-  const userHasAvatar = Boolean(
-    effectiveProfile.avatar || effectiveProfile.avatarUrl
-  );
-  const userHasFirstName = Boolean(effectiveProfile.firstName);
-  const userHasFamilyName = Boolean(effectiveProfile.familyName);
-  const userHasEmail = Boolean(effectiveProfile.email);
+
+  const userHasAvatar = effectiveProfile.avatar && effectiveProfile.avatarUrl !== null;
+  const userHasFirstName = effectiveProfile.firstName !== null;
+  const userHasFamilyName = effectiveProfile.familyName !== null;
+  const userHasEmail = effectiveProfile.email !== null;
 
   return (
     <div className="hidden xl:flex w-2/5 bg-white p-4 my-4 ml-4 rounded-xl  justify-center">
       <div className="fixed mt-20 border-2 rounded-[65px] border-lightGray px-8 py-14 flex flex-col h-[630px] w-[320px] items-center">
         {userHasAvatar ? (
-          <Image
-            src={effectiveProfile.avatar}
-            width={1000}
-            height={1000}
-            alt="avatar"
-            className="rounded-full border-2 border-strongPurple h-24 w-24 mb-8"
-          />
+          <Image src={effectiveProfile.avatar || effectiveProfile.avatarUrl} width={1000} height={1000} alt="avatar" className="rounded-full border-2 border-strongPurple h-24 w-24 mb-8"/>
         ) : (
           <div className="bg-lightGray rounded-full h-24 w-24 mb-8" />
         )}
@@ -79,7 +70,7 @@ const Preview: FC<Props> = ({ links, profile, clientProfileData }) => {
                   }}
                 >
                   <div className="flex items-center md:z-30">
-                    {platforms[link.platform as keyof typeof platforms]}
+                  {platforms[link.platform as keyof typeof platforms]}
                     <p className="headerS text-white ml-2 md:z-30">
                       {link.platform}
                     </p>

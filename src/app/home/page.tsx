@@ -3,33 +3,29 @@ import { currentUser } from "@clerk/nextjs";
 import { PrismaClient } from "@prisma/client";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
+import prisma from "@/lib/client";
 
 const fetchUserProfile = async (clerkId: string) => {
-  const prisma = new PrismaClient();
   const profile = await prisma.profile.findFirst({
     where: {
       clerkId: clerkId,
     },
   });
-  await prisma.$disconnect();
   return profile;
 }
 
 const fetchUserLinks = async (clerkId: string) => {
-  const prisma = new PrismaClient();
   const links = await prisma.link.findMany({
     where: {
       clerkId: clerkId,
     },
   });
-  await prisma.$disconnect();
   return links;
 };
 
 const updateLinks = async (links: userLink[], clerkId: string) => {
   "use server";
 
-  const prisma = new PrismaClient();
   const linksToDelete = await prisma.link.deleteMany({
     where: {
       clerkId: clerkId,
@@ -46,7 +42,6 @@ const updateLinks = async (links: userLink[], clerkId: string) => {
     });
   }
 
-  await prisma.$disconnect();
   revalidateTag("/profile");
   revalidatePath("profile");
   redirect("/profile");

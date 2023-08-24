@@ -6,6 +6,7 @@ import { BsArrowRight } from "react-icons/bs";
 import { platforms, colors } from "@/lib/platforms";
 import ShareButton from "@/components/share button/ShareButton";
 import { currentUser, clerkClient } from "@clerk/nextjs";
+import prisma from "@/lib/client";
 interface Props {
   params: {
     clerkId: string;
@@ -14,24 +15,20 @@ interface Props {
 
 
 const fetchUserProfile = async (clerkId: string) => {
-  const prisma = new PrismaClient();
   const profile = await prisma.profile.findFirst({
     where: {
       clerkId: clerkId,
     },
   });
-  await prisma.$disconnect();
   return profile;
 };
 
 const fetchLinks = async (clerkId: string) => {
-  const prisma = new PrismaClient();
   const links = await prisma.link.findMany({
     where: {
       clerkId: clerkId,
     },
   });
-  await prisma.$disconnect();
   return links;
 };
 

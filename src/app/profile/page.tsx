@@ -4,6 +4,7 @@ import { PrismaClient } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import cloudinary from "cloudinary";
+import prisma from "@/lib/client";
 
 cloudinary.v2.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -13,30 +14,25 @@ cloudinary.v2.config({
 
 
 const fecthLinks = async (clerkId:string) => {
-  const prisma = new PrismaClient();
   const links = await prisma.link.findMany({
     where: {
       clerkId: clerkId,
     },
   });
-  await prisma.$disconnect();
   return links;
 }
 
 const fetchProfile = async (clerkId:string) => {
-  const prisma = new PrismaClient();
   const profile = await prisma.profile.findFirst({
     where: {
       clerkId: clerkId,
     },
   });
-  await prisma.$disconnect();
   return profile;
 }
 
 const updateOrCreateProfile = async(profileData:ProfileData, clerkId:string) => {
   'use server'
-  const prisma = new PrismaClient();
   const existingProfile = await prisma.profile.findFirst({
     where: {
       clerkId:clerkId,
@@ -64,7 +60,6 @@ const updateOrCreateProfile = async(profileData:ProfileData, clerkId:string) => 
         email: profileData.email,
       },
     });
-    await prisma.$disconnect();
   } else {
     const newProfile = await prisma.profile.create({
       data: {
@@ -76,7 +71,6 @@ const updateOrCreateProfile = async(profileData:ProfileData, clerkId:string) => 
         email: profileData.email,
       },
     });
-    await prisma.$disconnect();
   }
 
   revalidatePath(`/${clerkId}`);
