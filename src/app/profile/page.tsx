@@ -84,7 +84,7 @@ const ProfilePage = async() => {
   const links = await fecthLinks(user!.id)
 
 
-  if (!links) {
+  if (links.length === 0) {
     return (
       <div className="bg-white rounded-md m-4 p-4 flex flex-col">
         <div className="flex flex-col items-center mx-auto bg-lightestGray p-4 m-4 rounded-md w-full">
