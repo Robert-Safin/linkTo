@@ -1,4 +1,4 @@
-
+'use client'
 import { Link, Profile } from "@prisma/client";
 import Image from "next/image";
 import { ChangeEvent, FC, useState, useTransition } from "react";
