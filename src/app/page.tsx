@@ -1,12 +1,7 @@
-import { currentUser } from "@clerk/nextjs";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
 const Page = async () => {
-  const user = await currentUser();
-  if (user) {
-    redirect(`${user.id}`);
-  }
+
   return (
     <div className="flex justify-center items-center h-screen bg-lightestGray">
       <div className="rounded-lg p-4 m-4">
