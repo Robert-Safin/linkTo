@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import cloudinary from "cloudinary";
 import prisma from "@/lib/client";
+import Link from "next/link";
 
 cloudinary.v2.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -81,6 +82,19 @@ const ProfilePage = async() => {
   const user = await currentUser()
   const profile = await fetchProfile(user!.id)
   const links = await fecthLinks(user!.id)
+
+  if (!links) {
+    return (
+      <div className="bg-white rounded-md m-4 p-4 flex flex-col">
+        <div className="flex flex-col items-center mx-auto bg-lightestGray p-4 m-4 rounded-md w-full">
+          <p className="headerS text-red mb-4">Make some links first</p>
+          <Link href={"/home"} className="buttonPrimaryDefault">
+            Create Links
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
