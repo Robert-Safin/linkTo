@@ -24,7 +24,7 @@ const PreviewProfile: FC<Props> = ({ links, profile, clientProfileData }) => {
   const userHasLinks = links.length > 0;
 
 
-  const userHasAvatar = profile.avatarUrl  !== null;
+  const userHasAvatar = profile.avatarUrl  !== null && profile.avatarUrl !== "";
   const userHasFirstName = profile.firstName !== null;
   const userHasFamilyName = profile.familyName !== null;
   const userHasEmail = profile.email !== null;
