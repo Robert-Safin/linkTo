@@ -11,7 +11,7 @@ import { ProfileData } from "../profile form/ProfileFrom";
 interface Props {
   links: LinkUi[];
   profile: Profile;
-  clientProfileData: ProfileData
+  clientProfileData: ProfileData | null;
 }
 
 const Preview: FC<Props> = ({ links, profile, clientProfileData }) => {

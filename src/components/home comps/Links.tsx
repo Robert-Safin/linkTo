@@ -102,16 +102,16 @@ const Links: FC<Props> = (props) => {
     setNumberOfLinks((prev) => prev - 1);
   };
 
-  const clientProfileData = {
-    avatar: props.profile.avatarUrl,
-    firstName: props.profile.firstName,
-    familyName: props.profile.familyName,
-    email: props.profile.email!,
-  }
+  // const clientProfileData = {
+  //   avatar: props.profile.avatarUrl,
+  //   firstName: props.profile.firstName,
+  //   familyName: props.profile.familyName,
+  //   email: props.profile.email!,
+  // }
 
   return (
     <div className="xl:flex">
-      {/* <Preview links={links} profile={props.profile} clientProfileData={clientProfileData}/> */}
+      <Preview links={links} profile={props.profile} clientProfileData={null}/>
 
     <div className="xl:w-3/5 bg-white rounded-md m-4 p-4 min-h-screen flex flex-col justify-between">
       <div>
