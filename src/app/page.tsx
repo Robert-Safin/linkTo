@@ -1,8 +1,11 @@
+import { currentUser } from "@clerk/nextjs";
 import Link from "next/link";
 
 const Page = async () => {
 
+  const user =await  currentUser()
   return (
+
     <div className="flex justify-center items-center h-screen bg-lightestGray">
       <div className="rounded-lg p-4 m-4">
         <h1 className="headerM">linkTo is a free link sharing app.</h1>
@@ -24,6 +27,7 @@ const Page = async () => {
           </Link>
         </div>
       </div>
+      {JSON.stringify(user?.emailAddresses[0].emailAddress)}
     </div>
   );
 };

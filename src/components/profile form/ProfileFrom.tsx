@@ -51,7 +51,6 @@ const ProfileForm: FC<Props> = (props) => {
     }));
   };
 
-
   const handleAvatarChangeBase64 = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const reader = new FileReader();
@@ -103,7 +102,6 @@ const ProfileForm: FC<Props> = (props) => {
     setClientProfileData(updatedProfile);
   };
 
-
   return (
     <div className="xl:flex">
       <Preview
@@ -112,16 +110,21 @@ const ProfileForm: FC<Props> = (props) => {
         clientProfileData={clientProfileData}
       />
       <div className="bg-white rounded-md p-4 m-4 h-screen xl:w-3/5">
-        <h1 className="headerM mt-6 mb-4">Profile Details</h1>
+        <h1 className="headerM mt-6 mb-4">
+          Profile Details{" "}
+          <a
+          target="_blank"
+            href="https://clear-rabbit-33.accounts.dev/user"
+            className="bodyS text-midGray underline ml-2"
+          >
+            Manage OAuth
+          </a>{" "}
+        </h1>
         <p className="bodyM text-midGray mb-6">
           Add your details to create a personal touch to your profile.
         </p>
 
-        <form
-          onSubmit={handleSubmit}
-
-          className="flex flex-col"
-        >
+        <form onSubmit={handleSubmit} className="flex flex-col">
           <div className="bg-lightestGray rounded-md p-4 flex flex-col w-full mx-auto md:flex-row md:items-center md:justify-between">
             <label className="bodyM text-midGray mb-2">Profile picture</label>
             <div className="md:w-1/2 md:flex md:items-center">

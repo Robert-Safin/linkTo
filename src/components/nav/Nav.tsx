@@ -30,7 +30,7 @@ const Nav: FC<Props> = (props) => {
     <div className="bg-white flex flex-row justify-between p-4 items-center sticky top-0">
       <div className="flex items-center">
         <Link
-          href={`/home`}
+          href={`/`}
           className="bg-strongPurple p-1 rounded-2xl text-white hover:bg-midPurple"
         >
           <TbLayersLinked className="w-8 h-8" />
@@ -72,6 +72,8 @@ const Nav: FC<Props> = (props) => {
         <TbEye className="w-8 h-8 md:hidden" />
         <p className="headerS hidden md:block">Preview</p>
       </Link>
+
+
     </div>
   );
 };

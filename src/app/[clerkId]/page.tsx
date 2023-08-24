@@ -87,7 +87,7 @@ const PreviewPage: FC<Props> = async (props) => {
 
   return (
     <div className="w-full">
-      <div className="hiden md:block md:fixed md:z-10 md:bg-strongPurple md:w-full md:h-[380px] md:top-0 md:rounded-b-3xl" />
+      <div className="hiden md:block md:fixed md:z-10 md:bg-strongPurple md:w-full md:h-[380px] md:top-0 md:rounded-b-3xl xl:left-0 xl:right-0" />
       {user && (
         <div className="z-20 fixed top-0 w-full flex bg-white p-4 space-x-4 md:left-4 md:right-4 md:top-4 md:w-auto md:rounded-lg md:justify-between">
           <Link
