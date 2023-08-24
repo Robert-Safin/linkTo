@@ -16,11 +16,12 @@ interface Props {
 
 const PreviewProfile: FC<Props> = (props) => {
   const effectiveProfile = {
-    avatarUrl: props.clientProfileData.avatar || props.profile.avatarUrl,
-    firstName: props.clientProfileData.firstName || props.profile.firstName,
-    familyName: props.clientProfileData.familyName || props.profile.familyName,
-    email: props.clientProfileData.email || props.profile.email,
-  };
+    avatarUrl: props.clientProfileData.avatar || (props.profile ? props.profile.avatarUrl : undefined),
+    firstName: props.clientProfileData.firstName || (props.profile ? props.profile.firstName : undefined),
+    familyName: props.clientProfileData.familyName || (props.profile ? props.profile.familyName : undefined),
+    email: props.clientProfileData.email || (props.profile ? props.profile.email : undefined),
+};
+
 
   const shadowsToShow = 5 - props.links.length;
 
