@@ -150,7 +150,7 @@ const Links: FC<Props> = (props) => {
               alt="get started"
               width={124}
               height={80}
-              className="mx-auto md:w-[250px] md:h-[160px]"
+              className="mx-auto md:w-[250px] md:h-[160px] object-cover"
             />
             <h1 className="headerM my-6 md:my-8">Let’s get you started</h1>
             <p className="bodyM text-midGray md:w-[488px] md:mx-auto">

@@ -104,7 +104,7 @@ const PreviewPage: FC<Props> = async (props) => {
             alt="avatar"
             width={150}
             height={150}
-            className="object-fill rounded-full border-4 border-strongPurple mx-auto md:z-30"
+            className="object-cover rounded-full border-4 border-strongPurple mx-auto md:z-30"
           />
           <h1 className="headerM md:z-30">
             {profile.firstName} {profile.familyName}

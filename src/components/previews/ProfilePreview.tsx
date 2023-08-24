@@ -36,7 +36,7 @@ const PreviewProfile: FC<Props> = (props) => {
             width={1000}
             height={1000}
             alt="avatar"
-            className="rounded-full border-2 border-strongPurple h-24 w-24 mb-8"
+            className="object-cover rounded-full border-2 border-strongPurple h-24 w-24 mb-8"
           />
         ) : (
           <div className="bg-lightGray rounded-full h-24 w-24 mb-8" />

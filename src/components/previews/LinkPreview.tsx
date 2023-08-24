@@ -23,7 +23,7 @@ const LinkPreview: FC<Props> = (props) => {
     <div className="hidden xl:flex w-2/5 bg-white p-4 my-4 ml-4 rounded-xl  justify-center">
       <div className="fixed mt-20 border-2 rounded-[65px] border-lightGray px-8 py-14 flex flex-col h-[630px] w-[320px] items-center">
         {existingProfile ? (
-          <Image src={props.profile.avatarUrl} width={1000} height={1000} alt="avatar" className="rounded-full border-2 border-strongPurple h-24 w-24 mb-8"/>
+          <Image src={props.profile.avatarUrl} width={1000} height={1000} alt="avatar" className="object-cover rounded-full border-2 border-strongPurple h-24 w-24 mb-8"/>
         ) : (
           <div className="bg-lightGray rounded-full h-24 w-24 mb-8" />
         )}

@@ -146,7 +146,7 @@ const ProfileForm: FC<Props> = (props) => {
                     <Image
                       src={avatar}
                       alt="Avatar Preview"
-                      className="object-fill w-[200px] h-[200px] rounded-xl opacity-60 shadow-sm shadow-black"
+                      className="object-cover w-[200px] h-[200px] rounded-xl opacity-60 shadow-sm shadow-black"
                       width={200}
                       height={200}
                     />
